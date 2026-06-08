@@ -133,7 +133,7 @@ Website:
 https://synvertexengineering.com
 
 Product Page:
-https://synvertexengineering.com/products/navcore-rx
+https://synvertexengineering.com/products
 
 Blog:
 https://synvertexengineering.com/blog
