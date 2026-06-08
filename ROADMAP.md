@@ -12,9 +12,7 @@
 - Add command/telemetry examples
 
 ## v0.3 — Application examples
-- Rover example
-- Hovercraft example
-- Crop sprayer example
+- Bait Boat complete
 
 ## v0.4 — TX/RX ecosystem
 - Add transmitter overview
