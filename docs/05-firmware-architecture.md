@@ -1,3 +1,3 @@
 <p align="center">
-  <img src="assets/firmware-architecture" alt="NavCore RX" width="850">
+  <img src="assets/firmware-architecture.png" alt="NavCore RX" width="850">
 </p>
