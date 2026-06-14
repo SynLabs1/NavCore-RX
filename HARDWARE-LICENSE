@@ -1,1 +1,11 @@
+NavCore RX Hardware License
 
+Copyright (c) 2026 Synvertex Engineering
+
+The NavCore RX hardware design files, including schematics, PCB layout files,
+Gerbers, pinout diagrams, mechanical references, and related hardware
+documentation, are licensed under the CERN Open Hardware Licence Version 2 -
+Strongly Reciprocal (CERN-OHL-S-2.0).
+
+The full CERN-OHL-S-2.0 license text is available here:
+https://ohwr.org/cern_ohl_s_v2.txt
