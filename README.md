@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/navcore-rx-hero.png" alt="NavCore RX" width="850">
+  <img src="assets/navcore-rx-hero.jpeg" alt="NavCore RX" width="850">
 </p>
 
 <p align="center">
