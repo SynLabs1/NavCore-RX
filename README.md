@@ -1,3 +1,18 @@
+<p align="center">
+  <img src="assets/navcore-rx-hero.png" alt="NavCore RX" width="850">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/MCU-STM32G431-blue">
+  <img src="https://img.shields.io/badge/GPS-LC86GLAMD-green">
+  <img src="https://img.shields.io/badge/IMU-ICM--20948-orange">
+  <img src="https://img.shields.io/badge/Radio-LoRa%20900MHz-purple">
+  <img src="https://img.shields.io/badge/Status-Active%20Development-yellow">
+</p>
+
+
+
+
 # NavCore RX
 
 **Open-source STM32 wireless control board for small robotics and RC vehicle experiments.**
