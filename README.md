@@ -1,109 +1,206 @@
 # NavCore RX
 
-NavCore RX is an open vehicle and robotics controller platform built around the STM32G431, GPS, 9-axis IMU, LoRa telemetry, servo outputs, ESC control, and reusable application-layer firmware.
+**Open-source STM32 wireless control board for small robotics and RC vehicle experiments.**
 
-It is designed for builders working on RC vehicles, autonomous boats, rovers, hovercrafts, telemetry platforms, and custom robotics projects.
+NavCore RX is a compact control board built around an STM32G431 microcontroller, GPS, 9-axis IMU, LoRa telemetry, ESC PWM outputs, servo outputs, battery monitoring, and a tested bait-boat reference firmware.
 
-![NavCore RX Firmware Architecture](images/firmware-architecture.png)
+It is designed for students, researchers, makers, and embedded developers who want a ready hardware foundation for small GPS-enabled robotics vehicles without starting every project from sensor integration, radio communication, and motor-control firmware.
+
+> Current status: NavCore RX is a tested hardware and firmware reference platform. GPS telemetry, IMU sensing, LoRa communication, ESC PWM, servo output, battery monitoring, and the bait-boat reference firmware are tested. Autonomous RTH and waypoint navigation are experimental and not presented as production-ready yet.
+
+---
 
 ## Why NavCore RX exists
 
-Most robotics projects spend weeks integrating the same foundation before the real application can begin:
+Most small robotics projects spend weeks integrating the same foundation before the actual application begins:
 
-- GPS
-- IMU
-- Radio communication
-- Telemetry
-- Battery monitoring
-- Servo outputs
-- ESC outputs
-- Safety logic
-- Firmware structure
+* Microcontroller bring-up
+* GPS parsing
+* IMU reading
+* Radio communication
+* Motor PWM generation
+* Servo control
+* Battery monitoring
+* Telemetry protocol
+* Safety states and command handling
 
-NavCore RX provides this foundation so builders can focus on the application layer.
+NavCore RX brings these building blocks together on one tested board, so the user can focus on the vehicle behavior instead of rebuilding the foundation from scratch.
+
+---
 
 ## Hardware at a glance
 
-| Component | Part | Purpose |
-|---|---|---|
-| MCU | STM32G431CBT6 | 170 MHz Cortex-M4 controller |
-| IMU | ICM-20948 | Accelerometer, gyroscope, temperature |
-| Compass | AK09916 | Tilt-compensated magnetic heading |
-| GPS | LC86GLAMD | Position, speed, course, HDOP |
-| Radio | E220-900T22D | LoRa telemetry and command link |
-| Outputs | Servo + ESC PWM | Vehicle actuator control |
+| Block           | Part                     | Purpose                                                |
+| --------------- | ------------------------ | ------------------------------------------------------ |
+| MCU             | STM32G431CBT6            | 170 MHz Cortex-M4 control processor                    |
+| IMU             | ICM-20948                | Accelerometer, gyroscope, temperature                  |
+| Compass         | AK09916 inside ICM-20948 | Magnetic heading                                       |
+| GPS             | LC86GLAMD                | Position, speed, course, satellite count, HDOP         |
+| Radio           | E220-900T22D             | 900 MHz LoRa telemetry and command link                |
+| Motor outputs   | 2x ESC PWM               | Differential motor control                             |
+| Servo outputs   | 2x PWM                   | Bait drop, rudder, pump, gimbal, or custom mechanism   |
+| Battery monitor | ADC input                | Battery voltage measurement                            |
+| Light outputs   | MOSFET outputs           | Front/rear light control or low-current switched loads |
+
+---
+
+## What is tested today
+
+* STM32G431 firmware bring-up
+* GPS NMEA parsing
+* IMU pitch/roll/heading readout
+* LoRa TX/RX communication
+* ASCII command and telemetry protocol
+* ESC PWM outputs
+* Servo PWM outputs
+* Battery voltage monitoring
+* Front/rear light MOSFET outputs
+* Bait-boat reference firmware
+* TX/RX command acknowledgement and retry logic
+
+---
+
+## What is experimental
+
+These features are under development and should not be treated as production-ready yet:
+
+* Autonomous return-to-home navigation
+* Waypoint navigation
+* Vehicle-specific PID control
+* Drone attitude-control firmware
+* Balancing robot firmware
+* Multi-vehicle application examples beyond the bait-boat reference
+
+---
+
+## Reference application: bait boat
+
+The first tested reference application is a bait-boat control system.
+
+The reference firmware demonstrates:
+
+* Differential ESC motor control
+* Servo bait-drop sequence
+* GPS telemetry
+* Home-position averaging
+* IMU-based tilt and safety states
+* Battery monitoring
+* LoRa command and telemetry link
+* TX/RX command confirmation and retry handling
+
+This reference application is used as the starting point for future boat, rover, hovercraft, and research-vehicle examples.
+
+---
 
 ## Firmware structure
 
-The firmware is split into two layers:
+The firmware is organized into two layers:
 
-| Layer | User action |
-|---|---|
-| Application Layer | Modify this |
-| Core Library | Provided by platform |
-| Hardware | Runs on NavCore RX |
+```text
+APPLICATION LAYER
+Vehicle-specific logic:
+- safety rules
+- servo behavior
+- motor mapping
+- timing constants
+- application states
 
-Users typically modify:
-
-- `config.h`
-- `Servo_Step()`
-- `IMU_CheckSafety()`
-- application-specific command behavior
-
-The core library handles:
-
-- GPS polling
-- IMU reading
-- radio send/receive
-- motor output
-- servo output
-- battery monitoring
+CORE LIBRARY
+Reusable hardware services:
+- GPS parser
+- IMU reader
+- radio communication
+- motor PWM
+- servo PWM
+- battery reading
 - telemetry packets
-- distance filtering
+```
 
-## Current status
+The goal is to keep low-level hardware drivers reusable while allowing each application to change only the behavior layer.
 
-NavCore RX is currently in prototype validation and pre-launch preparation.
-
-Reference firmware is derived from a tested bait boat system. The architecture is designed to support additional applications such as hovercrafts, ground rovers, crop sprayers, balancing robots, and custom RC vehicles.
+---
 
 ## Documentation
 
-- [User Guide](docs/NavCore_RX_User_Guide.pdf)
-- [Platform Guide](docs/NavCore_RX_Platform_Guide.pdf)
+Start here:
 
-## Example applications
+* [Overview](docs/01-overview.md)
+* [Hardware Overview](docs/02-hardware.md)
+* [Pinout](docs/03-pinout.md)
+* [Radio Protocol](docs/04-radio-protocol.md)
+* [Firmware Architecture](docs/05-firmware-architecture.md)
+* [Demo Status](docs/07-demo-status.md)
+* [Limitations](docs/08-limitations.md)
+* [Roadmap](docs/09-roadmap.md)
 
-Current reference:
+---
 
-- Bait boat
+## Demo videos
 
-Planned examples:
+Feature demo videos will be added here:
 
-- Rover
-- Hovercraft
-- Crop sprayer
-- Custom telemetry vehicle
+* Board bring-up
+* LoRa TX/RX communication
+* GPS telemetry
+* IMU pitch/roll/heading
+* ESC PWM output
+* Servo output sequence
+* Battery monitoring
+* Firmware architecture walkthrough
 
-## What is included now
+---
 
-- Platform documentation
-- User guide
-- Firmware architecture
-- Wiring overview
-- Reference bait boat guide
-- Roadmap
+## Who this is for
 
-## What is not released yet
+NavCore RX is intended for:
 
-Full production manufacturing files will be released after final validation of the production revision.
+* Robotics students
+* University project teams
+* Embedded systems learners
+* RC vehicle experimenters
+* Research prototypes
+* Makers building GPS-enabled vehicles
+* Developers who want a starting platform for custom control firmware
+
+It is not currently marketed as a finished consumer product or a certified autopilot.
+
+---
+
+## Roadmap
+
+Short term:
+
+* Publish public documentation
+* Add clean firmware examples
+* Add feature demo videos
+* Add wiring diagrams
+* Add getting-started guide
+
+Mid term:
+
+* Improve application-layer examples
+* Add rover/surface-vehicle example
+* Improve magnetometer calibration guide
+* Add simulation or bench-test navigation examples
+
+Long term:
+
+* Autonomous RTH navigation
+* Waypoint navigation
+* Small production batch
+* Tindie / Crowd Supply launch evaluation
+
+---
 
 ## License
 
-Software: MIT License  
-Hardware: CERN Open Hardware License v2
+Firmware license: MIT License
+Hardware license: CERN Open Hardware License, planned for public hardware release
 
-## Links
+---
 
-Website: https://synvertexengineering.com  
-Product page: https://synvertexengineering.com/products/navcore-rx
+## Project status
+
+NavCore RX is an active Synvertex Engineering open hardware project.
+
+Website: https://synvertexengineering.com
