@@ -1,3 +1,5 @@
+This example uses placeholder function names such as `Motor_Set()`, `Servo_SetPulse()`, and `SendGPSToTX()` to show structure. Exact driver implementations are provided in the main firmware release.
+
 /*
  * NavCore RX - Bait Boat Reference Application
  *
